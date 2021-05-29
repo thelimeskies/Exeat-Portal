@@ -1,0 +1,73 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+    <div class="container-fluid p-0">
+
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block mb-4">
+                <h3 class="text-purple fs-1">HELLO <strong>{{ request.user }}</strong></h3>
+                <h3 class="fs-2 fw-bold" style="color: #498A70;">Home Exeat!</h3>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h5 class="fs-3 card-title">Please fill in your details below.</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="exeat_type" value="HE">
+                                <div class="mb-3">
+                                    <label class="fs-4 fw-bold text-purple form-label">LEAVE DATE</label>
+                                    <label for="floatingInput  id_leave_date"></label><input type="date"
+                                                                                             class="form-control inputs-2"
+                                                                                             name="leave_date"
+                                                                                             id="floatingInput  id_leave_date"
+                                                                                             required
+                                                                                             placeholder="Leave Date">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="id_return_date" class="fs-4 fw-bold text-purple form-label">RETURN
+                                        DATE</label>
+                                    <label for="floatingInput id_return_date"></label><input type="date"
+                                                                                             class="form-control inputs-2"
+                                                                                             id="floatingInput id_return_date"
+                                                                                             name="return_date" required
+                                                                                             placeholder="Leave Date">
+                                </div>
+                                <label for="id_reason" class="fs-4 fw-bold text-purple form-label">REASON</label>
+                                <div class="mb-3 form-floating">
+                                    <label for="floatingInput id_reason"></label><textarea class="form-control inputs-2"
+                                                                                           id="floatingInput id_reason"
+                                                                                           name="reason" maxlength="254"
+                                                                                           required
+                                                                                           placeholder="Reasons(s) for leaving"
+                                                                                           rows="1"
+                                                                                           style="height: 150px;"></textarea>
+                                    <label for="floatingInput">Reasons(s) for leaving</label>
+                                </div>
+                                <div class="card attachment mb-3 shadow p-3 mb-5 rounded bg-secondary">
+                                    <p class="text-white" for="id_attachment">Attachment (Optional)</p>
+                                    <input class="form-control" type="file" name="attachment"
+                                           id="formFile id_attachment">
+                                </div>
+                                <div class="mb-3">
+                                </div>
+
+                                <a href="#" class="nav-link text-white">
+                                    <button type="submit" class="btn btn-primary apply_btn "
+                                            style="background-color: #498A70;" onclick="success()">Submit
+                                    </button>
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

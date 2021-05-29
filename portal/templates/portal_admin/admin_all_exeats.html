@@ -1,0 +1,103 @@
+{% extends 'portal_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="col-12 col-xl-12">
+        <div class="col-auto">
+            <p class="text-success fs-2 fw-bold">ALL EXEAT DATA.</p>
+            <P class="text-purple fs-3">N/B: You can't approve or disapprove exeats on this list, you can only view all
+                exeat applications and the different types of exeat. To approve or disapprove exeats, please
+                <a href="{% url 'choose_exeat' %}">go here</a>
+            </P>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-success text-center fs-2 mb-5 fw-bolder">VIEW ALL EXEATS BELOW</h1>
+            </div>
+            <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                <thead>
+                <tr>
+                    <th>EXEAT</th>
+                    <th>MATRIC NUMBER</th>
+                    <th>DEPARTURE DATE</th>
+                    <th>RETURN DATE</th>
+                    <th>STATUS</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.get_exeat_type_display }}</td>
+                        <td>{{ object.user.username }}</td>
+                        <td>{{ object.leave_date }}</td>
+                        <td>{{ object.return_date }}</td>
+                        <td class="text-warning fw-bold">{{ object.get_status_display }}</td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#one{{ object.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                     class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                                </svg>
+                                View
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="one{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content bg-body">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-3 text-purple fw-bolder" id="exampleModalLabel">
+                                                EXEAT DETAILS</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="card p-3 shadow-lg p-3 mb-5 rounded">
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">NAME: </span>{{ object.user.profile.first_name }} {{ object.user.profile.last_name }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">MATRIC NUMBER: </span>{{ object.user.username }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">DEPARTURE DATE: </span>{{ object.leave_date }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">RETURN DATE: </span>{{ object.return_date }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">EXEAT TYPE: </span>{{ object.get_exeat_type_display }}
+                                                </p>
+                                                <p class="fs-3 "><span class="fw-bolder fs-3 text-dark">PARENTS PHONE NUMBER: </span>{{ object.user.profile.parent_phone_no }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">REASON: </span>{{ object.reason }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{% static 'js/datatables.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Datatables Responsive
+            $("#datatables-reponsive").DataTable({
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}

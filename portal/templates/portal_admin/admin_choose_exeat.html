@@ -1,0 +1,41 @@
+{% extends 'portal_admin/base.html' %}
+
+{% block content %}
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block mb-4">
+                <h3 class="text-purple fs-1">HELLO <strong>ADMIN</strong></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card "
+                     style="height: 200px; background: #DDEDE6; border-radius: 25px; border: solid 1px #b9dfc9;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #498A70; " ;>Pending Home Exeat</h1>
+                        <a href="{% url 'admin_home_exeat' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #498A70; border-radius: 40px; border: solid 0;">
+                                VIEW
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card "
+                     style="height: 200px; background: #EDDDE3; border-radius: 25px; border: solid 1px #f1cfdc;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #8A4963; " ;>Pending Day Exeat</h1>
+                        <a href="{% url 'admin_day_exeat' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #8A4963; border-radius: 40px; border: solid 0;">
+                                VIEW
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

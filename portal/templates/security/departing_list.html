@@ -1,0 +1,91 @@
+{% extends 'security/base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block mb-4">
+                <h3 class="text-purple fs-1">Welcome!</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center text-success">LIST OF STUDENTS APPROVED FOR DEPARTURE TODAY</h1>
+            </div>
+            <div class="card-body">
+                <table id="datatables-reponsive" class="table table-striped" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>EXEAT</th>
+                        <th>MATRIC NUMBER</th>
+                        <th>DEPARTURE DATE</th>
+                        <th>RETURN DATE</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object_list %}
+
+                        <tr>
+                            <td>{{ object.exeat.get_exeat_type_display }}</td>
+                            <td>{{ object.exeat.user.username }}</td>
+                            <td>{{ object.exeat.leave_date }}</td>
+                            <td>{{ object.exeat.return_date }}</td>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#one{{ object.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                         class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                    View
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="one{{ object.id }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content bg-body">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fs-3 text-purple fw-bolder"
+                                                    id="exampleModalLabel">EXEAT DETAILS</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="card p-3 shadow-lg p-3 mb-5 rounded">
+                                                    <p class="fs-3 "><span
+                                                            class="fw-bolder fs-3 text-dark">NAME: </span></strong>{{ object.exeat.user.profile.first_name }} {{ object.exeat.user.profile.last_name }}
+                                                    </p>
+                                                    <p class="fs-3 "><span class="fw-bolder fs-3 text-dark">DEPARTURE DATE: </span></strong>{{ object.exeat.leave_date }}
+                                                    </p>
+                                                    <p class="fs-3 "><span
+                                                            class="fw-bolder fs-3 text-dark">RETURN DATE: </span></strong>{{ object.exeat.return_date }}
+                                                    </p>
+                                                    <p class="fs-3 "><span
+                                                            class="fw-bolder fs-3 text-dark">EXEAT TYPE: </span></strong>{{ object.exeat.get_exeat_type_display }}
+                                                    </p>
+                                                    <a href="#" class="nav-link text-white">
+                                                        <button type="submit" onclick="ClockOut({{ object.pk }})"
+                                                                class="btn btn-primary apply_btn "
+                                                                style="background-color: #498A70;">Clock Out
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

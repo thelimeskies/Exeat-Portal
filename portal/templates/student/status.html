@@ -1,0 +1,86 @@
+{% extends 'student/base.html' %}
+{% block content %}
+    <div class="col-12 col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-success text-center fs-2 mb-5 fw-bolder">VIEW YOUR EXEAT STATUS BELOW</h1>
+            </div>
+            <table class="table">
+                <thead class="text-purple">
+                <tr>
+                    <th scope="col">EXEAT</th>
+                    <th scope="col">LEAVE DATE</th>
+                    <th scope="col">RETURN DATE</th>
+                    <th scope="col">STATUS</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.get_exeat_type_display }}</td>
+                        <td class="d-none d-md-table-cell">{{ object.leave_date }}</td>
+                        <td class="d-none d-md-table-cell">{{ object.return_date }}</td>
+                        <td class="text-info fw-bolder">{{ object.get_status_display }}</td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#one{{ object.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                     class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                                </svg>
+                                View
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="one{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content bg-body">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-3 text-purple fw-bolder" id="exampleModalLabel">
+                                                EXEAT DETAILS</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="card p-3 shadow-lg p-3 mb-5 rounded">
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">NAME: </span>{{ object.user.username }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">DEPARTURE DATE: </span>{{ object.leave_date }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">RETURN DATE: </span>{{ object.return_date }}
+                                                </p>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">EXEAT TYPE: </span>{{ object.get_exeat_type_display }}
+                                                </p>
+                                                <h3 class="fs-3 fw-bold">STATUS: <span
+                                                        class="badge bg-primary">{{ object.get_status_display }}</span>
+                                                </h3>
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">REASON: </span>{{ object.reason }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>"No Application Found"</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

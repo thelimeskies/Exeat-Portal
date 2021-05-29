@@ -1,0 +1,45 @@
+{% extends 'security/base.html' %}
+
+
+{% block content %}
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block mb-4">
+                <h3 class="text-purple fs-1">Welcome!</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card "
+                     style="height: 200px; background: #DDEDE6; border-radius: 25px; border: solid 1px #b9dfc9;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #498A70; " ;>DEPARTING</h1>
+                        <a href="{% url 'departing_list' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #498A70; border-radius: 40px; border: solid 0px;">
+                                Clock out
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card "
+                     style="height: 200px; background: #EDE6DD; border-radius: 25px; border: solid 1px #e0d5c6;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #8A7049; " ;>RETURNING</h1>
+                        <a href="{% url 'returning_list' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #8A7049; border-radius: 40px; border: solid 0px;">
+                                Clock In
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+<script src="js/app.js "></script>

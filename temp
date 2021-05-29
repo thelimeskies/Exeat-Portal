@@ -1,0 +1,40 @@
+<script>
+        function success() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your Application Has Been Submitted!',
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: true
+            })
+        }
+    </script>
+
+
+
+    class TempStatusView(ListView):
+    model = Exeat
+    template_name = 'student/temp.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(user__username=self.request.user)
+
+
+
+
+class ExeatView(CreateView):
+    form_class = ExeatForm
+    template_name = 'student/home_exeat.html'
+    success_url = '/Dashboard/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super(ExeatView, self).form_valid(form)
+
+
+
+def home_exeat(request, *args, **kwargs):
+    return render(request, 'student/home_exeat.html')
+

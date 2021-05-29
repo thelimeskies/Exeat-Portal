@@ -1,0 +1,54 @@
+{% extends 'student/base.html' %}
+{% block content %}
+    <div class="container-fluid p-0">
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block mb-4">
+                <h3 class="text-purple fs-1">HELLO <strong>{{ request.user }}</strong></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="card "
+                     style="height: 200px; background: #DDEDE6; border-radius: 25px; border: solid 1px #b9dfc9;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #498A70; " ;>Home Exeat</h1>
+                        <a href="{% url 'home_exeat' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #498A70; border-radius: 40px; border: solid 0;">
+                                Apply
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card "
+                     style="height: 200px; background: #EDE6DD; border-radius: 25px; border: solid 1px #e0d5c6;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #8A7049; " ;>Bank Exeat</h1>
+                        <a href="{% url 'bank_exeat' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #8A7049; border-radius: 40px; border: solid 0;">
+                                Apply
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card "
+                     style="height: 200px; background: #EDDDE3; border-radius: 25px; border: solid 1px #f1cfdc;">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="fs-2 fw-bolder text-center mb-5" style="color: #8A4963; " ;>Day Exeat</h1>
+                        <a href="{% url 'day_exeat' %}">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="height: 56px; width: 171px; background: #8A4963; border-radius: 40px; border: solid 0;">
+                                Apply
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
