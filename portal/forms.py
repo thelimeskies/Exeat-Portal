@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
@@ -23,7 +24,6 @@ class ExeatForm(ModelForm):
 
 
 class ExtensionForm(ModelForm):
-
     def __init__(self, user, *args, **kwargs):
         super(ExtensionForm, self).__init__(*args, **kwargs)
         self.fields['exeat'].queryset = Exeat.objects.filter(user__username=user, status="A",
@@ -32,4 +32,8 @@ class ExtensionForm(ModelForm):
 
     class Meta:
         model = ExeatExtension
-        fields = '__all__'
+        exclude = ('approval', 'disapproval_reason')
+        widgets = {
+            'Reason': forms.Textarea(attrs={'class': 'form-control inputs-2', 'style': "height:150px;"}),
+            # 'exeat': forms.ChoiceField(attrs={'class': 'form-control inputs-2'})
+        }

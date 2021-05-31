@@ -1,4 +1,5 @@
 {% extends 'exeat_team/base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="container-fluid p-0">
@@ -20,7 +21,7 @@
                         </a>
                     </div>
                     <div class="col-6 pt-lg-5 pb-5 ">
-                        <img src="/img/photos/prof1.svg" alt="" class="img-fluid d-flex welcome_img">
+                        <img src="{% static '/img/photos/prof1.svg' %}" alt="" class="img-fluid d-flex welcome_img">
                     </div>
                 </div>
             </div>

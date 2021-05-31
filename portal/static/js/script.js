@@ -55,4 +55,33 @@ function ClockOut(id) {
 
 }
 
+function Extend(id) {
+    var i = id
+    $.ajax({
+        url: '/ajax/extend',
+        data: {'i': i},
+        dataType: 'json',
+        success: function (data) {
+            location.reload()
+        }
+
+    })
+
+}
+
+function Disapprove(id) {
+    var i = id
+    var reason = document.getElementById('floatingInput'.concat(id)).value
+    $.ajax({
+        url: '/ajax/disapprove',
+        data: {'i': i, 'j' : reason},
+        dataType: 'json',
+        success: function (data) {
+            location.reload()
+        }
+
+    })
+
+    }
+
 

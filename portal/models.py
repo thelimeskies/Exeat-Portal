@@ -75,11 +75,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 
-def create_exeat_approval(sender, instance, created, **kwargs):
-    if created:
-        Approval.objects.create(exeat=instance)
-
-
 def create_exeat_security(sender, instance, created, **kwargs):
     if created:
         Security.objects.create(exeat=instance)
@@ -94,7 +89,7 @@ def content_file_name(instance, filename):
 class Exeat(models.Model):
     Status_Choices = [
         ('P', 'Pending'),
-        ('D', 'Disproved'),
+        ('D', 'Disapproved'),
         ('AD', 'Awaiting Dean Approval'),
         ('AE', 'Awaiting Acceptance'),
         ('A', 'Approved')
@@ -113,18 +108,7 @@ class Exeat(models.Model):
     attachment = models.FileField(upload_to='uploads/%Y%m%d', blank=True)
     status = models.CharField(choices=Status_Choices, max_length=2, default=Status_Choices[0][0])
     date_created = models.DateTimeField(default=timezone.now)
-
-
-class Approval(models.Model):
-    Approval_Choices = [
-        ('PE', 'Pending'),
-        ('AC', 'Accept'),
-        ('RJ', 'Reject'),
-    ]
-    exeat = models.OneToOneField(Exeat, on_delete=models.CASCADE, primary_key=True)
-    exeat_team_acceptance = models.CharField(max_length=2, choices=Approval_Choices, default=Approval_Choices[0][0])
-    dsa_approval = models.CharField(max_length=2, choices=Approval_Choices, default=Approval_Choices[0][0])
-    disapproval_reason = models.CharField(max_length=254, blank=True)
+    disapproval_reason = models.CharField(max_length=254, blank= True)
 
 
 class Security(models.Model):
@@ -135,15 +119,17 @@ class Security(models.Model):
 
 class ExeatExtension(models.Model):
     Approval_Choices = [
+        ('P', 'Pending'),
         ('AC', 'Accept'),
         ('RJ', 'Reject'),
     ]
     exeat = models.ForeignKey(Exeat, on_delete=models.CASCADE)
     disapproval_reason = models.CharField(max_length=254, blank=True)
+    Reason = models.CharField(max_length=254)
     return_date = models.DateField()
-    approval = models.CharField(choices=Approval_Choices, max_length=2)
+    approval = models.CharField(choices=Approval_Choices, max_length=2, default=Approval_Choices[0][0])
+    attachment = models.FileField(upload_to='uploads/%Y%m%d', blank=True)
 
 
 post_save.connect(create_user_profile, sender=User)
-post_save.connect(create_exeat_approval, sender=Exeat)
 post_save.connect(create_exeat_security, sender=Exeat)

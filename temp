@@ -38,3 +38,45 @@ class ExeatView(CreateView):
 def home_exeat(request, *args, **kwargs):
     return render(request, 'student/home_exeat.html')
 
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="text-center" style="width: 80%; margin: 0 auto">
+        <h1>Welcome to the Password Reset Page</h1>
+        <h3>
+            Forgot your password? Please enter the email address you used to register
+            with us and we will send you a link to reset your password
+        </h3>
+    </div>
+    <br/>
+
+    <form action="" method="POST" class="text-center">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Send email"/><br>
+    </form><br/>
+    <div class="text-center">
+        <a href="{% url 'home' %}">Return to home page</a>
+    </div>
+
+{% endblock %}
+
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="text-center" style="width: 80%; margin: 0 auto">
+        <h1>Password Reset Form</h1>
+        <h6 style="width: 60%; margin: 0 auto">
+            Please enter your new password so we can verify.
+        </h6>
+    </div>
+    <br/>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Reset Password"/>
+    </form>
+
+{% endblock %}

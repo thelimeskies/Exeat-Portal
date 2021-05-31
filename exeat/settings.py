@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-mgc4u7%^j$3r7-wa-ar3i9n5v2a5+h5u$zusz4ezdm^i6=gr)t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'portal.apps.PortalConfig',
     'phonenumber_field',
     'import_export',
+    'widget_tweaks',
     'django_extensions',
 ]
 
@@ -146,3 +147,4 @@ EMAIL_HOST_PASSWORD = 'sammycruz'
 EMAIL_USE_SSL = False
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+

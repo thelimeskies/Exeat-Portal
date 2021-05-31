@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import handler404
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
-    PasswordResetConfirmView, PasswordResetCompleteView
+    PasswordResetConfirmView, PasswordResetCompleteView, PasswordChangeView
 from django.urls import path
 from django.views.generic import TemplateView
 
@@ -43,6 +44,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('reset_password_complete/', PasswordResetCompleteView.as_view(template_name="password_reset_done.html"),
          name='password_reset_complete'),
+    path('change_password/', PasswordChangeView.as_view(template_name="change_password.html"), name="change_password"),
 
     # Student/ URLs
     path('Student/', StudentDashboard.as_view(), name='student'),
@@ -77,8 +79,10 @@ urlpatterns = [
     # Functions
     path('ajax/approve/', approve_exeat, name='approve'),
     path('ajax/accept/', views.accept_exeat, name='accept'),
+    path('ajax/extend/', views.extend_exeat, name='extend_btn'),
     path('ajax/clock_in', views.clock_in, name='clock_in'),
     path('ajax/clock_out', views.clock_out, name='clock_out'),
+    path('ajax/disapprove', views.disapprove, name='disapprove'),
 
     # Debugging
     path('testing/', views.temp, name='testing'),
@@ -87,3 +91,5 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+handler404 = 'portal.views.error_404'

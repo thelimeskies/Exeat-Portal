@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from import_export.admin import ImportExportModelAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import User, Exeat, Approval, Security, Profile, ExeatExtension
+from .models import User, Exeat,  Security, Profile, ExeatExtension
 
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
@@ -35,7 +35,6 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Exeat)
-admin.site.register(Approval)
 admin.site.register(Security)
 admin.site.register(Profile)
 admin.site.register(ExeatExtension)

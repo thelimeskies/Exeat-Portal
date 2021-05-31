@@ -66,16 +66,17 @@
                                                 <p class="fs-3 "><span
                                                         class="fw-bolder fs-3 text-dark">REASON: </span>{{ object.reason }}
                                                 </p>
+                                                {% if object.status == "D" %}
+                                                <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">DISAPPROVAL REASON: </span>{{ object.disapproval_reason }}
+                                                </p>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>"No Application Found"</td>
                     </tr>
                 {% endfor %}
 

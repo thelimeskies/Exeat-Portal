@@ -130,15 +130,14 @@
                                         <div class="modal-body">
                                             <p class="text-center fw-bolder text-purple fs-3">REASON FOR DISSAPROVAL</p>
                                             <div class="mb-3 form-floating">
-                                                <textarea class="form-control inputs-2" id="floatingInput" required
+                                                <textarea class="form-control inputs-2" id="floatingInput{{ object.id }}" required
                                                           placeholder="Reasons(s) for leaving" rows="1"
                                                           style="height: 150px;"></textarea>
                                                 <label for="floatingInput">Reasons(s) for dissaproval</label>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary apply_btn fs-4" data-bs-target="#one"
-                                                    data-bs-toggle="modal" data-bs-dismiss="modal">Submit
+                                            <button class="btn btn-primary apply_btn fs-4" onclick="Disapprove({{ object.id }})">Submit
                                             </button>
                                         </div>
                                     </div>

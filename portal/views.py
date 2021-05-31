@@ -75,10 +75,10 @@ class BankExeatView(CreateView):
         return super(BankExeatView, self).form_valid(form)
 
 
-# @method_decorator([login_required, student_required], name='dispatch')
+@method_decorator([login_required, student_required], name='dispatch')
 class ExtendView(CreateView):
     form_class = ExtensionForm
-    template_name = 'student/temp.html'
+    template_name = 'student/extend.html'
     success_url = '/Student/status'
 
     def get_form_kwargs(self):
@@ -132,11 +132,11 @@ class AdHomeExeatView(ListView):
 
 @method_decorator([login_required, admin_required], name='dispatch')
 class AdExtensionView(ListView):
-    model = Exeat
+    model = ExeatExtension
     template_name = 'portal_admin/admin_exeat_extension.html'
 
     def get_queryset(self):
-        return self.model.objects.filter(status="P", exeat_type="HE")
+        return self.model.objects.filter(approval="P")
 
 
 @method_decorator([login_required, admin_required], name='dispatch')
@@ -166,6 +166,18 @@ def approve_exeat(request):
         p.status = "AE"
         p.save()
         data = {'i': p.status}
+    return JsonResponse(data)
+
+
+@login_required
+@admin_required
+def extend_exeat(request):
+    if request.method == "GET":
+        i = request.GET.get('i', None)
+        p = ExeatExtension.objects.get(id=i)
+        p.approval = "AC"
+        p.save()
+        data = {'i': p.approval}
     return JsonResponse(data)
 
 
@@ -289,5 +301,22 @@ def clock_out(request):
     return JsonResponse(data)
 
 
+def disapprove(request):
+    if request.method == "GET":
+        i = request.GET.get('i', None)
+        j = request.GET.get('j', None)
+        p = Exeat.objects.get(id=i)
+        p.status = "D"
+        p.disapproval_reason = j
+        p.save()
+        data = {'i': p.status}
+    return JsonResponse(data)
+
+
 def temp(request):
     return render(request, 'portal_admin/admin_portal.html')
+
+
+def error_404(request, exception):
+    data = {}
+    return render(request, 'error_404.html', data)
