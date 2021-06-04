@@ -1,1 +1,1 @@
-web: gunicorn HSL_DB.wsgi --log-file -
+web: gunicorn exeat.wsgi --log-file -
