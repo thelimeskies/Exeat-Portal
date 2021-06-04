@@ -1,0 +1,1 @@
+web: gunicorn HSL_DB.wsgi --log-file -
