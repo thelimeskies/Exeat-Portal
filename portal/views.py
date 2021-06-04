@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, TemplateView
+from django.db.models import F
 
 from .decorators import student_required, security_required, exeat_team_required, admin_required
 from .forms import ExeatForm, ExtensionForm
@@ -157,6 +158,15 @@ class AdAllExeatView(ListView):
         return self.model.objects.all()
 
 
+@method_decorator([login_required, admin_required], name='dispatch')
+class AdDefaultersView(ListView):
+    model = Exeat
+    template_name = 'portal_admin/admin_defaulters.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(security__clocked_in__gt=F('return_date'))
+
+
 @login_required
 @admin_required
 def approve_exeat(request):
@@ -260,7 +270,8 @@ class DepartingList(ListView):
     template_name = 'security/departing_list.html'
 
     def get_queryset(self):
-        return self.model.objects.filter(exeat__leave_date=date.today(), exeat__status="A", clocked_out__isnull=True)
+        return self.model.objects.filter(exeat__leave_date__lte=date.today(), exeat__status="A",
+                                         clocked_out__isnull=True)
 
 
 @method_decorator([login_required, security_required], name='dispatch')
@@ -269,7 +280,8 @@ class ReturningList(ListView):
     template_name = 'security/returning_list.html'
 
     def get_queryset(self):
-        return self.model.objects.filter(exeat__return_date=date.today(), exeat__status="A", clocked_in__isnull=True)
+        return self.model.objects.filter(exeat__status="A", clocked_in__isnull=True,
+                                         clocked_out__isnull=False)
 
 
 @method_decorator([login_required, security_required], name='dispatch')

@@ -26,7 +26,7 @@ from portal import views
 from portal.views import HomeExeatView, DayExeatView, BankExeatView, StatusView, AdHomeExeatView, AdDayExeatView, \
     AdAllExeatView, StudentDashboard, AdminDashboard, AdChooseExeat, TmDashboard, TmChooseExeat, TmBankExeatView, \
     TmDayExeatView, TmAllExeatView, TmHomeExeatView, approve_exeat, DepartingList, ReturningList, ScDashboard, \
-    StudentSelect, AdExtensionView, ExtendView
+    StudentSelect, AdExtensionView, ExtendView, AdDefaultersView
 
 urlpatterns = [
     # Django Admin
@@ -62,6 +62,7 @@ urlpatterns = [
     path('Admin/day_exeat/', AdDayExeatView.as_view(), name='admin_day_exeat'),
     path('Admin/all_exeat/', AdAllExeatView.as_view(), name='admin_all_exeat'),
     path('Admin/extension/', AdExtensionView.as_view(), name='ad_extension'),
+    path('Admin/defaulters/', AdDefaultersView.as_view(), name='ad_defaulters'),
 
     # ExeatTeam URLs
     path('Team/', TmDashboard.as_view(), name='exeat_team'),
