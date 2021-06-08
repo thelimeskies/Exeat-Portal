@@ -11,6 +11,8 @@ from .managers import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=254)
+    last_name = models.CharField(max_length=254)
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=20, unique=True)
     is_staff = models.BooleanField(default=False)
@@ -28,6 +30,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class Program(models.Model):
+    program = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.program
 
 
 class Profile(models.Model):
@@ -54,13 +63,12 @@ class Profile(models.Model):
         ('M', 'Male'),
         ('F', 'Female')
     ]
-    first_name = models.CharField(max_length=254)
-    last_name = models.CharField(max_length=254)
-    parent_phone_no = PhoneNumberField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    parent_phone_no = PhoneNumberField()
     gender = models.CharField(max_length=1, choices=Gender)
-    Program = models.CharField(max_length=254)
+    # program = models.ForeignKey(Program, on_delete=models.CASCADE, blank=True)
     hall = models.CharField(max_length=10, choices=Hall_Choices)
+    room_no = models.CharField(max_length=4, blank=True)
     level = models.CharField(max_length=3, choices=Level_Choices)
 
     def __str__(self):
@@ -108,7 +116,7 @@ class Exeat(models.Model):
     attachment = models.FileField(upload_to='uploads/%Y%m%d', blank=True)
     status = models.CharField(choices=Status_Choices, max_length=2, default=Status_Choices[0][0])
     date_created = models.DateTimeField(default=timezone.now)
-    disapproval_reason = models.CharField(max_length=254, blank= True)
+    disapproval_reason = models.CharField(max_length=254, blank=True)
 
 
 class Security(models.Model):
