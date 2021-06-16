@@ -1,7 +1,7 @@
 {% extends 'portal_admin/base.html' %}
+{% load static %}
 
 {% block content %}
-    {% load static %}
     <div class="col-12 col-xl-12">
         <div class="col-auto">
             <p class="text-success fs-2 fw-bold">EXEAT APPLICATIONS</p>
@@ -11,7 +11,7 @@
                 <h1 class="text-success text-center fs-2 mb-5 fw-bolder">APPROVE OR DISAPPROVE <span
                         class="fs-1 text-purple">HOME</span> EXEATS BELOW</h1>
             </div>
-            <table id="datatables-reponsive" class="table table-striped">
+            <table id="datatables-reponsive" class="table table-striped" style="width:100%">
                 <thead class="text-purple">
                 <tr>
                     <th scope="col">NAME</th>
@@ -19,19 +19,18 @@
                     <th scope="col">HALL/ ROOM NO.</th>
                     <th scope="col">LEAVE DATE</th>
                     <th scope="col">RETURN DATE</th>
-                    <th></th>
+                    <th data-priority="1"></th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for object in object_list %}
                     <tr>
-                        <td class="d-none d-md-table-cell">{{ object.user.first_name }} {{ object.user.last_name }}</td>
-                        <td class="d-none d-md-table-cell">{{ object.user.username }}</td>
-                        <td class="text-info fw-bolder">{{ object.user.profile.hall }}</td>
+                        <td>{{ object.get_exeat_type_display }}</td>
+                        <td>{{ object.user.username }}</td>
                         <td>{{ object.leave_date }}</td>
                         <td>{{ object.return_date }}</td>
+                        <td class="text-warning fw-bold">{{ object.get_status_display }}</td>
                         <td>
-
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#one{{ object.id }}">
@@ -44,7 +43,7 @@
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade container" id="one{{ object.id }}" tabindex="-1"
+                            <div class="modal fade" id="one{{ object.id }}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog ">
                                     <div class="modal-content">
@@ -96,6 +95,12 @@
                                                 <p class="fs-3 "><span
                                                         class="fw-bolder fs-3 text-dark">REASON: </span>{{ object.reason }}
                                                 </p>
+                                                {% if object.attachment %}
+                                                    <p class="fs-3 "><span
+                                                        class="fw-bolder fs-3 text-dark">ATTACHMENT: </span><a
+                                                            href="{{ object.attachment.url }}" target="_blank">View Attachment</a>
+                                                    </p>
+                                                {% endif %}
 
                                             </div>
                                         </div>

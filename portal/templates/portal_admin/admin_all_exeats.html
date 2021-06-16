@@ -10,7 +10,7 @@
                 <a href="{% url 'choose_exeat' %}">go here</a>
             </P>
         </div>
-        <div class="card">
+        <div class="card container-fluid">
             <div class="card-header">
                 <h1 class="text-success text-center fs-2 mb-5 fw-bolder">VIEW ALL EXEATS BELOW</h1>
             </div>
@@ -22,7 +22,7 @@
                     <th>DEPARTURE DATE</th>
                     <th>RETURN DATE</th>
                     <th>STATUS</th>
-                    <th></th>
+                    <th data-priority="1"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                         <td>{{ object.leave_date }}</td>
                         <td>{{ object.return_date }}</td>
                         <td class="text-warning fw-bold">{{ object.get_status_display }}</td>
-                        <td>
+                        <td >
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#one{{ object.id }}">
@@ -96,7 +96,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             // Datatables Responsive
             $("#datatables-reponsive").DataTable({
-                responsive: true
+               responsive: true,
             });
         });
     </script>
