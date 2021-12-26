@@ -1,6 +1,6 @@
 # Exeat-Portal
 
-Live Link: https://exeat-portal.herokuapp.com
+Live Link: https://exeat-portal.herokuapp.com/login
 
 ## Login Details
 
